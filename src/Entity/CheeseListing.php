@@ -61,7 +61,7 @@ class CheeseListing
      */
     private $isPublished = false;
 
-    public function __construct($title)
+    public function __construct($title = null)
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->title = $title;
