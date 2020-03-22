@@ -46,7 +46,7 @@ class CheeseListing
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"cheese_listing:read", "cheese_listing:write"})
+     * @Groups({"cheese_listing:read", "cheese_listing:write", "user:read"})
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min=1,
