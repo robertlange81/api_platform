@@ -16,31 +16,31 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     collectionOperations={"get","post"},
+ *     collectionOperations={"get", "post"},
  *     itemOperations={
- *      "get"={
- *          "normalization_context"={"groups"={"cheese_listing:read", "cheese_listing:item:get"}}
+ *          "get"={
+ *              "normalization_context"={"groups"={"cheese_listing:read", "cheese_listing:item:get"}},
+ *          },
+ *          "put"
  *     },
- *      "put"
- *     },
- *     normalizationContext={"groups"={"cheese_listing:read"}},
- *     denormalizationContext={"groups"={"cheese_listing:write"}},
  *     shortName="cheeses",
+ *     normalizationContext={"groups"={"cheese_listing:read"}, "swagger_definition_name"="Read"},
+ *     denormalizationContext={"groups"={"cheese_listing:write"}, "swagger_definition_name"="Write"},
  *     attributes={
- *      "pagination_items_per_page"=10,
- *      "formats"={"json", "jsonld", "jsonhal", "csv"={"text/csv"}}
+ *          "pagination_items_per_page"=10,
+ *          "formats"={"jsonld", "json", "html", "jsonhal", "csv"={"text/csv"}}
  *     }
  * )
- * @ORM\Entity(repositoryClass="App\Repository\CheeseListingRepository")
  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
  * @ApiFilter(SearchFilter::class, properties={
- *     "title":"partial",
- *     "description":"partial",
- *     "owner":"exact",
- *     "owner.username":"partial"
+ *     "title": "partial",
+ *     "description": "partial",
+ *     "owner": "exact",
+ *     "owner.username": "partial"
  * })
  * @ApiFilter(RangeFilter::class, properties={"price"})
  * @ApiFilter(PropertyFilter::class)
+ * @ORM\Entity(repositoryClass="App\Repository\CheeseListingRepository")
  */
 class CheeseListing
 {
@@ -56,9 +56,9 @@ class CheeseListing
      * @Groups({"cheese_listing:read", "cheese_listing:write", "user:read", "user:write"})
      * @Assert\NotBlank()
      * @Assert\Length(
-     *     min=1,
+     *     min=2,
      *     max=50,
-     *     maxMessage="Minimum 50 chars"
+     *     maxMessage="Describe your cheese in 50 chars or less"
      * )
      */
     private $title;
@@ -71,10 +71,10 @@ class CheeseListing
     private $description;
 
     /**
-     * price in cents
+     * The price of this delicious cheese, in cents
      *
      * @ORM\Column(type="integer")
-     * @Groups({"cheese_listing:read", "cheese_listing:write", "user:write"})
+     * @Groups({"cheese_listing:read", "cheese_listing:write", "user:read", "user:write"})
      * @Assert\NotBlank()
      */
     private $price;
@@ -97,10 +97,10 @@ class CheeseListing
      */
     private $owner;
 
-    public function __construct($title = null)
+    public function __construct(string $title = null)
     {
-        $this->createdAt = new \DateTimeImmutable();
         $this->title = $title;
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -123,22 +123,25 @@ class CheeseListing
      */
     public function getShortDescription(): ?string
     {
-        if(strlen($this->description) < 40)
+        if (strlen($this->description) < 40) {
             return $this->description;
+        }
 
-        return substr($this->description, 0, 40) . "...";
+        return substr($this->description, 0, 40).'...';
     }
 
-    public function setDescription($description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
-     * set description in raw format
+     * The description of the cheese as raw text.
+     *
      * @Groups({"cheese_listing:write", "user:write"})
      * @SerializedName("description")
-     *
      */
     public function setTextDescription(string $description): self
     {
@@ -165,9 +168,9 @@ class CheeseListing
     }
 
     /**
-     * How long ago this entity was added
-     * @Groups({"cheese_listing:read"})
-     * @return string
+     * How long ago in text that this cheese listing was added.
+     *
+     * @Groups("cheese_listing:read")
      */
     public function getCreatedAtAgo(): string
     {

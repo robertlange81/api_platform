@@ -6,13 +6,14 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
-        "doctrine/doctrine-migrations-bundle": "^2.1",
-        "nesbot/carbon": "^2.31",
-        "symfony/console": "4.2.*",
-        "symfony/dotenv": "4.2.*",
-        "symfony/flex": "^1.6",
-        "symfony/framework-bundle": "4.2.*",
-        "symfony/yaml": "4.2.*"
+        "doctrine/doctrine-migrations-bundle": "^2.0",
+        "nesbot/carbon": "^2.17",
+        "symfony/console": "4.3.*",
+        "symfony/dotenv": "4.3.*",
+        "symfony/flex": "^1.1",
+        "symfony/framework-bundle": "4.3.*",
+        "symfony/webpack-encore-bundle": "^1.6",
+        "symfony/yaml": "4.3.*"
     },
     "config": {
         "preferred-install": {
@@ -59,11 +60,11 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.2.*"
+            "require": "4.3.*"
         }
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.14",
+        "symfony/maker-bundle": "^1.11",
         "symfony/profiler-pack": "^1.0"
     }
 }
