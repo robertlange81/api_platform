@@ -1,5 +1,7 @@
 # API Platform Tutorial
 
+!!! Download Symfony Executable : wget https://get.symfony.com/cli/installer -O - | bash
+
 Well hi there! This repository holds the code and script
 for the [API Platform](https://symfonycasts.com/screencast/api-platform) course on SymfonyCasts.
 
