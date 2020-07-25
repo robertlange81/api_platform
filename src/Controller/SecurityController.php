@@ -21,5 +21,7 @@ class SecurityController extends AbstractController
         return $this->json([
                 'user' => $this->getUser() ? $this->getUser()->getId() : null]
         );
+
+        /* use "php bin/console security:encode" to generate password hash from plain text password */
     }
 }
