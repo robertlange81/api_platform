@@ -50,6 +50,7 @@
         props: ['entrypoint'],
         methods: {
             onUserAuthenticated(userUri) {
+                console.log("atut: " + userUri);
                 axios
                     .get(userUri)
                     .then(response => (this.user = response.data))
