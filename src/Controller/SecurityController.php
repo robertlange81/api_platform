@@ -26,4 +26,12 @@ class SecurityController extends AbstractController
 
         /* use "php bin/console security:encode" to generate password hash from plain text password */
     }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout()
+    {
+        throw new \Exception('should not be reached');
+    }
 }
