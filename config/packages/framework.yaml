@@ -9,7 +9,7 @@ framework:
     session:
         handler_id: ~
         cookie_secure: auto
-        cookie_samesite: lax
+        cookie_samesite: lax #means only cookies sent for GET requests (links in emails), BUT NO ACTIONS in GET (REST)
 
     #esi: true
     #fragments: true
