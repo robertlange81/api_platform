@@ -25,6 +25,16 @@ class CheeseListingResourceTest extends ApiTestCase {
         $em = self::$container->get(EntityManagerInterface::class);
         $em->persist($user);
         $em->flush();
+
+        // try to login with new user
+        $client->request('POST', '/login', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => [
+                'email' => 'cheeseplease@example.com',
+                'password' => 'foo'
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(204);
     }
 }
 
