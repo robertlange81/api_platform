@@ -2,13 +2,10 @@
 
 namespace App\tests\Functional;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
-use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
+use App\Test\CustomApiTestCase;
 
-class CheeseListingResourceTest extends ApiTestCase {
-    use ReloadDatabaseTrait;
+class CheeseListingResourceTest extends CustomApiTestCase {
+
     function testCreateCheeseListing()
     {
         $client = self::createClient();
@@ -18,25 +15,10 @@ class CheeseListingResourceTest extends ApiTestCase {
         ]);
         $this->assertResponseStatusCodeSame(401);
 
-        $user = new User();
-        $user->setEmail('cheeseplease@example.com');
-        $user->setUsername('cheeseplease');
-        $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$aUphWXhCQkVrNkh5Y3Bleg$W+T5mGHSgvrOYOBnRQMQQ8t3RjbcSVeGi3SsfBfzM6Y');
-
-        // autowire doesn't work in test context !!! - get entity manager directly
-        $em = self::$container->get(EntityManagerInterface::class);
-        $em->persist($user);
-        $em->flush();
-
+        $this->createUser('cheeseplease@example.com',
+            '$argon2id$v=19$m=65536,t=4,p=1$aUphWXhCQkVrNkh5Y3Bleg$W+T5mGHSgvrOYOBnRQMQQ8t3RjbcSVeGi3SsfBfzM6Y');
         // try to login with new user
-        $client->request('POST', '/login', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json' => [
-                'email' => 'cheeseplease@example.com',
-                'password' => '123'
-            ],
-        ]);
-        $this->assertResponseStatusCodeSame(204);
+        $this->logIn($client, 'cheeseplease@example.com', '123');
     }
 }
 
