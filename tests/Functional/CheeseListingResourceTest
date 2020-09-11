@@ -5,8 +5,10 @@ namespace App\tests\Functional;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 
 class CheeseListingResourceTest extends ApiTestCase {
+    use ReloadDatabaseTrait;
     function testCreateCheeseListing()
     {
         $client = self::createClient();
@@ -31,7 +33,7 @@ class CheeseListingResourceTest extends ApiTestCase {
             'headers' => ['Content-Type' => 'application/json'],
             'json' => [
                 'email' => 'cheeseplease@example.com',
-                'password' => 'foo'
+                'password' => '123'
             ],
         ]);
         $this->assertResponseStatusCodeSame(204);
