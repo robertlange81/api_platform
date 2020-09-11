@@ -22,10 +22,9 @@ class CustomApiTestCase extends ApiTestCase
         $user->setPassword($encoded);
 
         // autowire doesn't work in test context !!! - get entity manager directly
-        $em = self::$container->get(EntityManagerInterface::class);
+        $em = $this->getEntityManager();
         $em->persist($user);
         $em->flush();
-        $this->assertResponseStatusCodeSame(401);
         return $user;
     }
 
@@ -45,5 +44,10 @@ class CustomApiTestCase extends ApiTestCase
         $user = $this->createUser($email, $password);
         $this->logIn($client, $email, $password);
         return $user;
+    }
+    
+    protected function getEntityManager(): EntityManagerInterface
+    {
+        return self::$container->get(EntityManagerInterface::class);
     }
 }
