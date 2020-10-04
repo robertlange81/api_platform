@@ -16,10 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     accessControl="is_granted('ROLE_USER')",
+ *     security="is_granted('ROLE_USER')",
  *     collectionOperations={
- *      "get"={"access_control"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"},
- *      "post"
+ *      "get",
+ *      "post"={"security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"},
  *     },
  *     itemOperations={
  *      "get"={"security"="is_granted('ROLE_USER')"},
