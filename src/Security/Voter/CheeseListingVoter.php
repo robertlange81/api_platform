@@ -12,7 +12,7 @@ class CheeseListingVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['POST_EDIT', 'POST_VIEW'])
+        return in_array($attribute, ['ROBERT_PUT_EDIT'])
             && $subject instanceof \App\Entity\CheeseListing;
     }
 
@@ -26,16 +26,16 @@ class CheeseListingVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case 'POST_EDIT':
+            case 'ROBERT_PUT_EDIT':
                 // logic to determine if the user can EDIT
                 // return true or false
-                break;
-            case 'POST_VIEW':
-                // logic to determine if the user can VIEW
-                // return true or false
-                break;
+                if ($subject->getOwner() === $user) {
+                    return true;
+                }
+                
+                return false;
         }
-
-        return false;
+    
+        throw new \Exception(sprintf('Unhandled attribute "%s"', $attribute));
     }
 }
