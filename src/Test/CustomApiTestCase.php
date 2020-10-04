@@ -12,11 +12,12 @@ class CustomApiTestCase extends ApiTestCase
 {
     use ReloadDatabaseTrait;
 
-    protected function createUser(string $email, string $password): User
+    protected function createUser(string $email, string $password, array $roles = []): User
     {
         $user = new User();
         $user->setEmail($email);
         $user->setUsername(substr($email, 0, strpos($email, '@')));
+        $user->setRoles($roles);
         $encoded = self::$container->get('security.password_encoder')
             ->encodePassword($user, $password);
         $user->setPassword($encoded);

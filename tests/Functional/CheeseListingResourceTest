@@ -36,6 +36,7 @@ class CheeseListingResourceTest extends CustomApiTestCase {
         $client = self::createClient();
         $user1 = $this->createUser('user1@example.com', 'foo');
         $user2 = $this->createUser('user2@example.com', 'foo');
+        $user3 = $this->createUser('admin@example.com', 'foo', ['ROLE_ADMIN']);
         $cheeseListing = new CheeseListing('Block of cheddar');
         $cheeseListing->setOwner($user1);
         $cheeseListing->setPrice(1000);
@@ -64,6 +65,13 @@ class CheeseListingResourceTest extends CustomApiTestCase {
             'json' => ['title' => 'updated', 'owner' => '/api/users/' . $user2->getId()]
         ]);
         $this->assertResponseStatusCodeSame(403);
+    
+        /* ... BUT Admin User should be able to steal items */
+        $this->logIn($client, 'admin@example.com', 'foo');
+        $client->request('PUT', '/api/cheeses/'.$cheeseListing->getId(), [
+            'json' => ['title' => 'updated', 'owner' => '/api/users/' . $user3->getId()]
+        ]);
+        $this->assertResponseStatusCodeSame(200);
     }
 }
 
