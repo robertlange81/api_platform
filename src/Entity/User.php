@@ -56,7 +56,6 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @Groups({"user:write"})
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -70,6 +69,7 @@ class User implements UserInterface
     /**
      * @Groups("user:write")
      * @SerializedName("password")
+     * @Assert\NotBlank(groups={"create"})
      */
     private $plainPassword;
 
@@ -89,9 +89,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"user:read", "user:write"})
      */
-    private $phoneNumber; /*
-
+    private $phoneNumber;
+    
     public function __construct()
     {
         $this->cheeseListings = new ArrayCollection();

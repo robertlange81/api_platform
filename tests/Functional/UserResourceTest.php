@@ -23,4 +23,31 @@ class UserResourceTest extends CustomApiTestCase
     
         $this->logIn($client, 'cheeseplease@example.com', 'brie');
     }
+    
+    public function testGetUser()
+    {
+        $client = self::createClient();
+        $user = $this->createUserAndLogIn($client, 'cheeseplease@example.com', 'foo');
+        $user->setPhoneNumber('555.123.4567');
+        $em = $this->getEntityManager();
+        $em->flush();
+    
+        $client->request('GET', '/api/users/'.$user->getId());
+    
+        $data = $client->getResponse()->toArray();
+        $this->assertArrayNotHasKey('phoneNumber', $data);
+    
+        // refresh the user & elevate
+        $user = $em->getRepository(User::class)->find($user->getId());
+        $user->setRoles(['ROLE_ADMIN']);
+        $em->flush();
+    
+        // TODO new login still needed in new api verision
+        $this->logIn($client, 'cheeseplease@example.com', 'foo');
+    
+        $client->request('GET', '/api/users/'.$user->getId());
+        $this->assertJsonContains([
+            'phoneNumber' => '555.123.4567'
+        ]);
+    }
 }
