@@ -2,6 +2,7 @@
 
 namespace App\tests\Functional;
 
+use App\Entity\User;
 use App\Test\CustomApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 
@@ -42,12 +43,11 @@ class UserResourceTest extends CustomApiTestCase
         $user->setRoles(['ROLE_ADMIN']);
         $em->flush();
     
-        // TODO new login still needed in new api verision
+        // TODO new login still needed in new api verision?
         $this->logIn($client, 'cheeseplease@example.com', 'foo');
     
         $client->request('GET', '/api/users/'.$user->getId());
-        $this->assertJsonContains([
-            'phoneNumber' => '555.123.4567'
-        ]);
+        $data = $client->getResponse()->toArray();
+        $this->assertArrayHasKey('phoneNumber', $data);
     }
 }
