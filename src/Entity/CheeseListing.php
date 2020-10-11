@@ -102,6 +102,7 @@ class CheeseListing
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"cheese_listing:read", "cheese_listing:write"})
      * @Assert\Valid()
+     * @Assert\NotBlank()
      * @IsValidOwner()
      */
     private $owner;

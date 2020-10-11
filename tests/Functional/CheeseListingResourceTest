@@ -17,6 +17,17 @@ class CheeseListingResourceTest extends CustomApiTestCase {
 
         $this->createUserAndLogIn($client, 'cheeseplease@example.com', '123');
         $this->assertResponseStatusCodeSame(204);
+    
+        $cheesyData = [
+            'title' => 'Mystery cheese... kinda green',
+            'description' => 'What mysteries does it hold?',
+            'price' => 5000
+        ];
+    
+        $client->request('POST', '/api/cheeses', [
+            'json' => $cheesyData,
+        ]);
+        $this->assertResponseStatusCodeSame(400);
     }
     
     function testOnlyUserCanLogIn()
@@ -28,7 +39,7 @@ class CheeseListingResourceTest extends CustomApiTestCase {
         ]);
         
         $this->logIn($client, 'cheeseplease@example.com', '123');
-        $this->assertResponseStatusCodeSame(401);
+        $this->assertResponseStatusCodeSame(401, "owner: This value should not be blank.");
     }
     
     public function testUpdateCheeseListing()
