@@ -20,14 +20,14 @@ class CheeseListingResourceTest extends CustomApiTestCase {
     
         $cheesyData = [
             'title' => 'Mystery cheese... kinda green',
-            'description' => 'What mysteries does it hold?',
+            'description' => 'Item without owner set',
             'price' => 5000
         ];
     
         $client->request('POST', '/api/cheeses', [
             'json' => $cheesyData,
         ]);
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(201);
     }
     
     function testOnlyUserCanLogIn()
