@@ -3,6 +3,7 @@
 namespace App\tests\Functional;
 
 use App\Entity\CheeseListing;
+use App\Entity\User;
 use App\Test\CustomApiTestCase;
 
 class CheeseListingResourceTest extends CustomApiTestCase {
@@ -122,7 +123,7 @@ class CheeseListingResourceTest extends CustomApiTestCase {
     public function testGetCheeseListingItem()
     {
         $client = self::createClient();
-        $user = $this->createUser('cheeseplese@example.com', 'foo');
+        $user = $this->createUserAndLogIn($client, 'cheeseplease@example.com', 'foo');
         $cheeseListing1 = new CheeseListing('cheese1');
         $cheeseListing1->setOwner($user);
         $cheeseListing1->setPrice(1000);
@@ -131,8 +132,23 @@ class CheeseListingResourceTest extends CustomApiTestCase {
         $em = $this->getEntityManager();
         $em->persist($cheeseListing1);
         $em->flush();
+    
         $client->request('GET', '/api/cheeses/'.$cheeseListing1->getId());
         $this->assertResponseStatusCodeSame(404);
+    
+        // refresh the user & elevate
+        $user = $em->getRepository(User::class)->find($user->getId());
+        $user->setRoles(['ROLE_ADMIN']);
+        $em->flush();
+    
+        // can fetch as admin
+        $this->logIn($client, 'cheeseplease@example.com', 'foo');
+        $client->request('GET', '/api/cheeses/'.$cheeseListing1->getId());
+        $this->assertResponseStatusCodeSame(200);
+    
+        $client->request('GET', '/api/users/'.$user->getId());
+        $data = $client->getResponse()->toArray();
+        $this->assertEmpty($data['cheeseListings']);
     }
 }
 
