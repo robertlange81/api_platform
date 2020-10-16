@@ -2,10 +2,10 @@
     
 namespace App\Doctrine;
 
-use App\Entity\CheeseListing;
+use App\Entity\ItemListing;
 use Symfony\Component\Security\Core\Security;
 
-class CheeseListingSetOwnerListener
+class ItemListingSetOwnerListener
 {
     /**
      * @var Security
@@ -17,14 +17,14 @@ class CheeseListingSetOwnerListener
         $this->security = $security;
     }
     
-    public function prePersist(CheeseListing $cheeseListing)
+    public function prePersist(ItemListing $itemListing)
     {
-        if ($cheeseListing->getOwner()) {
+        if ($itemListing->getOwner()) {
             return;
         }
     
         if ($this->security->getUser()) {
-            $cheeseListing->setOwner($this->security->getUser());
+            $itemListing->setOwner($this->security->getUser());
         }
     }
 }

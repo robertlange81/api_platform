@@ -3,8 +3,8 @@
         <div style="position:relative;">
             <div class="row no-gutters" style="box-shadow: 0 3px 7px 1px rgba(0,0,0,0.06);">
                 <div class="col py-5">
-                    <h1 class="text-center">CheeseWhiz</h1>
-                    <h6 class="text-center">Because someone wants your left-over cheese.</h6>
+                    <h1 class="text-center">Web & App IT Services</h1>
+                    <h6 class="text-center">Software Services</h6>
                 </div>
             </div>
             <div class="row no-gutters">
@@ -32,7 +32,7 @@
             </div>
             <footer class="footer">
 
-                    <p class="text-muted my-5 text-center">Made with ❤️ by the <a style="text-decoration: underline; color: #6c757d; font-weight: bold;" href="http://www.symfonycasts.com">SymfonyCasts</a> Team</p>
+                    <p class="text-muted my-5 text-center">Made with ❤️ by the <a style="text-decoration: underline; color: #6c757d; font-weight: bold;" href="http://www.robert-lange.eu">Web & App</a> Team</p>
 
             </footer>
         </div>

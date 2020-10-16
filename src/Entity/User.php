@@ -76,17 +76,17 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"user:read", "user:write", "cheese_listing:item:get", "cheese_listing:write"})
+     * @Groups({"user:read", "user:write", "item_listing:item:get", "item_listing:write"})
      * @Assert\NotBlank()
      */
     private $username;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CheeseListing", mappedBy="owner", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ItemListing", mappedBy="owner", cascade={"persist"}, orphanRemoval=true)
      * @Groups({"user:write"})
      * @Assert\Valid()
      */
-    private $cheeseListings;
+    private $itemListings;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -96,7 +96,7 @@ class User implements UserInterface
     
     public function __construct()
     {
-        $this->cheeseListings = new ArrayCollection();
+        $this->itemListings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,41 +185,41 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|CheeseListing[]
+     * @return Collection|ItemListing[]
      */
-    public function getCheeseListings(): Collection
+    public function getitemListings(): Collection
     {
-        return $this->cheeseListings;
+        return $this->itemListings;
     }
     
     /**
      * @Groups({"user:read"})
-     * @SerializedName("cheeseListings")
+     * @SerializedName("itemListings")
      */
-    public function getPublishedCheeseListings(): Collection
+    public function getPublisheditemListings(): Collection
     {
-        return $this->cheeseListings->filter(function(CheeseListing $cheeseListing) {
-            return $cheeseListing->getIsPublished();
+        return $this->itemListings->filter(function(ItemListing $itemListing) {
+            return $itemListing->getIsPublished();
         });
     }
 
-    public function addCheeseListing(CheeseListing $cheeseListing): self
+    public function additemListing(ItemListing $itemListing): self
     {
-        if (!$this->cheeseListings->contains($cheeseListing)) {
-            $this->cheeseListings[] = $cheeseListing;
-            $cheeseListing->setOwner($this);
+        if (!$this->itemListings->contains($itemListing)) {
+            $this->itemListings[] = $itemListing;
+            $itemListing->setOwner($this);
         }
 
         return $this;
     }
 
-    public function removeCheeseListing(CheeseListing $cheeseListing): self
+    public function removeitemListing(ItemListing $itemListing): self
     {
-        if ($this->cheeseListings->contains($cheeseListing)) {
-            $this->cheeseListings->removeElement($cheeseListing);
+        if ($this->itemListings->contains($itemListing)) {
+            $this->itemListings->removeElement($itemListing);
             // set the owning side to null (unless already changed)
-            if ($cheeseListing->getOwner() === $this) {
-                $cheeseListing->setOwner(null);
+            if ($itemListing->getOwner() === $this) {
+                $itemListing->setOwner(null);
             }
         }
 

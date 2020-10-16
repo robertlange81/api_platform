@@ -15,20 +15,20 @@ class UserResourceTest extends CustomApiTestCase
         $client = self::createClient();
         $client->request('POST', '/api/users', [
             'json' => [
-                'email' => 'cheeseplease@example.com',
-                'username' => 'cheeseplease',
+                'email' => 'testplease@example.com',
+                'username' => 'testplease',
                 'password' => 'brie'
             ]
         ]);
         $this->assertResponseStatusCodeSame(201);
     
-        $this->logIn($client, 'cheeseplease@example.com', 'brie');
+        $this->logIn($client, 'testplease@example.com', 'brie');
     }
     
     public function testGetUser()
     {
         $client = self::createClient();
-        $user = $this->createUserAndLogIn($client, 'cheeseplease@example.com', 'foo');
+        $user = $this->createUserAndLogIn($client, 'testplease@example.com', 'foo');
         $user->setPhoneNumber('555.123.4567');
         $em = $this->getEntityManager();
         $em->flush();
@@ -44,7 +44,7 @@ class UserResourceTest extends CustomApiTestCase
         $em->flush();
     
         // TODO new login still needed in new api verision?
-        $this->logIn($client, 'cheeseplease@example.com', 'foo');
+        $this->logIn($client, 'testplease@example.com', 'foo');
     
         $client->request('GET', '/api/users/'.$user->getId());
         $data = $client->getResponse()->toArray();

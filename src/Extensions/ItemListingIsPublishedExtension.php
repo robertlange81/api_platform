@@ -4,11 +4,11 @@ namespace App\Extensions;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
-use App\Entity\CheeseListing;
+use App\Entity\ItemListing;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Security;
 
-class CheeseListingIsPublishedExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
+class ItemListingIsPublishedExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
     private $security;
     public function __construct(Security $security)
@@ -28,7 +28,7 @@ class CheeseListingIsPublishedExtension implements QueryCollectionExtensionInter
     
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void
     {
-        if ($resourceClass !== CheeseListing::class) {
+        if ($resourceClass !== ItemListing::class) {
             return;
         }
         if ($this->security->isGranted('ROLE_ADMIN')) {

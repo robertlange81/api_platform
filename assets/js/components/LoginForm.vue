@@ -15,7 +15,7 @@
         </div>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">I like cheese</label>
+            <label class="form-check-label" for="exampleCheck1">I accept the Terms of Use.</label>
         </div>
         <button type="submit" class="btn btn-primary" v-bind:class="{ disabled: isLoading }">Log in</button>
     </form>

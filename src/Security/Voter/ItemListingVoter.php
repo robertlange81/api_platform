@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class CheeseListingVoter extends Voter
+class ItemListingVoter extends Voter
 {
     /**
      * @var Security
@@ -24,7 +24,7 @@ class CheeseListingVoter extends Voter
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, ['ROBERT_PUT_EDIT'])
-            && $subject instanceof \App\Entity\CheeseListing;
+            && $subject instanceof \App\Entity\ItemListing;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\CheeseListing;
+use App\Entity\ItemListing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method CheeseListing|null find($id, $lockMode = null, $lockVersion = null)
- * @method CheeseListing|null findOneBy(array $criteria, array $orderBy = null)
- * @method CheeseListing[]    findAll()
- * @method CheeseListing[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemListing|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemListing|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemListing[]    findAll()
+ * @method ItemListing[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CheeseListingRepository extends ServiceEntityRepository
+class ItemListingRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CheeseListing::class);
+        parent::__construct($registry, ItemListing::class);
     }
 
     // /**
-    //  * @return CheeseListing[] Returns an array of CheeseListing objects
+    //  * @return ItemListing[] Returns an array of ItemListing objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CheeseListingRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CheeseListing
+    public function findOneBySomeField($value): ?ItemListing
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
