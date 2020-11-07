@@ -44,6 +44,8 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "csfix": "phpcbf --ignore=src/Migrations/**,src/Kernel.php",
+        "cscheck": "phpcs --ignore=src/Migrations/**,src/Kernel.php",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
@@ -65,8 +67,10 @@
         }
     },
     "require-dev": {
+        "doctrine/coding-standard": "^8.2",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "hautelook/alice-bundle": "^2.7",
+        "squizlabs/php_codesniffer": "^3.5",
         "symfony/browser-kit": "4.3.*",
         "symfony/http-client": "4.3.*",
         "symfony/maker-bundle": "^1.11",
