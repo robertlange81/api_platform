@@ -60,6 +60,19 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
+    // enable ESLint
+    .addLoader({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        options: {
+            fix: true,
+            emitError: true,
+            emitWarning: true,
+        },
+    })
+
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 

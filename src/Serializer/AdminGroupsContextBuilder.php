@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Serializer;
+
 use ApiPlatform\Core\Serializer\SerializerContextBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -9,8 +10,10 @@ final class AdminGroupsContextBuilder implements SerializerContextBuilderInterfa
 {
     private $decorated;
     private $authorizationChecker;
-    public function __construct(SerializerContextBuilderInterface $decorated, AuthorizationCheckerInterface $authorizationChecker)
-    {
+    public function __construct(
+        SerializerContextBuilderInterface $decorated,
+        AuthorizationCheckerInterface $authorizationChecker
+    ) {
         $this->decorated = $decorated;
         $this->authorizationChecker = $authorizationChecker;
     }
