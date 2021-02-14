@@ -25,5 +25,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "csfix": "eslint assets/vue --ext .js,.vue, --fix"
+    },
+    "dependencies": {
+        "vue-router": "^3.5.1"
     }
 }

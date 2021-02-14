@@ -8,4 +8,4 @@ Vue.component('SkeletonApp', SkeletonApp);
 // TODO: https://blog.logrocket.com/how-to-write-a-vue-js-app-completely-in-typescript/
 new Vue({
   el: '#skeleton-app'
-});
+}).$mount("#app");
