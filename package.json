@@ -24,6 +24,6 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "csfix": "eslint assets/js --ext .js,.vue, --fix"
+        "csfix": "eslint assets/vue --ext .js,.vue, --fix"
     }
 }
