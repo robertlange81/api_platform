@@ -148,7 +148,7 @@ class ItemListingResourceTest extends CustomApiTestCase {
     
         $client->request('GET', '/api/users/'.$user->getId());
         $data = $client->getResponse()->toArray();
-        $this->assertEmpty($data['itemListings']);
+        $this->assertEmpty($data['items']);
     }
 }
 

@@ -87,6 +87,13 @@ class User implements UserInterface
      * @Assert\Valid()
      */
     private $itemListings;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="owner", cascade={"persist"}, orphanRemoval=true)
+     * @Groups({"user:write"})
+     * @Assert\Valid()
+     */
+    private $posts;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -97,6 +104,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->itemListings = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,7 +202,17 @@ class User implements UserInterface
     
     /**
      * @Groups({"user:read"})
-     * @SerializedName("itemListings")
+     * @SerializedName("posts")
+     * @return Collection|Post[]
+     */
+    public function getposts(): Collection
+    {
+        return $this->posts;
+    }
+    
+    /**
+     * @Groups({"user:read"})
+     * @SerializedName("items")
      */
     public function getPublisheditemListings(): Collection
     {

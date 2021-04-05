@@ -31,3 +31,8 @@ services:
         arguments: [ '@App\Serializer\AdminGroupsContextBuilder.inner' ]
     App\Doctrine\ItemListingSetOwnerListener:
         tags: [doctrine.orm.entity_listener]
+    App\Doctrine\PostSetOwnerListener:
+        tags: [doctrine.orm.entity_listener]
+    App\Exception\HTTPExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
