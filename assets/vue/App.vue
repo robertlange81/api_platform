@@ -39,6 +39,15 @@
           >
             <a class="nav-link">Start</a>
           </router-link>
+
+          <router-link
+            class="nav-item"
+            tag="li"
+            to="/posts"
+            active-class="active"
+          >
+            <a class="nav-link">Posts</a>
+          </router-link>
         </ul>
       </div>
     </nav>
@@ -46,9 +55,3 @@
     <router-view />
   </div>
 </template>
-
-<script>
-export default {
-  name: "App",
-}
-</script>

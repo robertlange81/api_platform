@@ -7,6 +7,10 @@ export default {
     });
   },
   findAll() {
-    return axios.get("/api/posts");
+    return axios.get("/api/posts", {
+      headers: {
+        accept: 'application/json'
+      }
+    });
   }
 };
