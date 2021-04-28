@@ -21,7 +21,8 @@ security:
                 username_path: email
                 password_path: password
             logout:
-                path: app_logout
+                path: /logout
+                target: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

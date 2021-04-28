@@ -126,6 +126,11 @@
       <path value="$PROJECT_DIR$/vendor/brick/math" />
     </include_path>
   </component>
+  <component name="PhpProjectServersManager">
+    <servers>
+      <server host="127.0.0.1:8000" id="6ef3168f-ff1b-4b39-84e5-95cc9e17c324" name="127.0.0.1:8000" port="8000" />
+    </servers>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
   <component name="PhpUnit">
     <phpunit_settings>

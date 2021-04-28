@@ -86,6 +86,7 @@ export default {
     }
   },
   mounted() {
+    console.log("mounted");
     if (window.user) {
       this.user = window.user;
     }

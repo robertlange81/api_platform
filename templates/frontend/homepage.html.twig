@@ -2,8 +2,8 @@
 
 {% block body %}
     <script>
-        window.user = {{ user|raw }};
-    </script>
+  window.user = {{ user|raw }};
+</script>
     <div id="skeleton-app">
         <skeleton-app
             entrypoint="{{ path('api_entrypoint') }}"
