@@ -78,11 +78,9 @@ export default {
       commit(FETCHING_POSTS);
       try {
         let response = await PostAPI.findAll();
-        debugger
         commit(FETCHING_POSTS_SUCCESS, response.data);
         return response.data;
       } catch (error) {
-        debugger
         commit(FETCHING_POSTS_ERROR, error);
         return null;
       }
