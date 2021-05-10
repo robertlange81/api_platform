@@ -45,7 +45,7 @@ class PostResourceTest extends CustomApiTestCase
     public function testFailCreatePostNotLoggedIn()
     {
         $this->client = self::createClient();
-        $this->client->request('GET', '/logout', [
+        $this->client->request('GET', '/api/logout', [
             'headers' => ['Content-Type' => 'application/json']
         ]);
     

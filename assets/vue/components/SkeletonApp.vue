@@ -24,12 +24,13 @@
             API
           </h2>
           <p class="text-white">
-            You are currently
-            <span v-if="user">
-              authenticated as {{ user.username }}
+            You are currently,
+            // TODO: use store value
+            <span v-if="isAuthenticated">
+              authenticated as {{ getUser.username }}
 
               <a
-                href="/logout"
+                href="/api/logout"
                 class="btn btn-warning btn-sm"
               >Log out</a>
             </span>
@@ -84,6 +85,14 @@ export default {
     return {
       user: null
     }
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters["security/isAuthenticated"];
+    },
+    getUser() {
+      return this.$store.getters["security/getUser"];
+    },
   },
   mounted() {
     console.log("mounted");

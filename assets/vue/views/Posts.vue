@@ -100,6 +100,7 @@ export default {
   },
   methods: {
     async createPost() {
+      // console.log(this.$data.message);
       const result = await this.$store.dispatch("post/create", this.$data.message);
       if (result !== null) {
         this.$data.message = "";
