@@ -25,7 +25,6 @@
           </h2>
           <p class="text-white">
             You are currently,
-            // TODO: use store value
             <span v-if="isAuthenticated">
               authenticated as {{ getUser.username }}
 
@@ -105,7 +104,12 @@ export default {
       console.log("atut: " + userUri);
       axios
         .get(userUri)
-        .then(response => (this.user = response.data))
+        .then(response => {
+          this.user = response.data;
+          let payload = { isAuthenticated: true, user: this.user };
+          this.$store.dispatch("security/onRefresh", payload);
+          this.$store.dispatch("security/setIsAuthenticated", payload);
+        })
     }
   }
 }

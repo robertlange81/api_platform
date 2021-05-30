@@ -42,7 +42,6 @@
       type="submit"
       class="btn btn-primary"
       :class="{ disabled: isLoading }"
-      @click="performLogin()"
     >
       Log in
     </button>
@@ -66,19 +65,6 @@ export default {
     }
   },
   methods: {
-    async performLogin() {
-      let payload = {login: this.$data.login, password: this.$data.password},
-        redirect = this.$route.query.redirect;
-
-      await this.$store.dispatch("security/login", payload);
-      if (!this.$store.getters["security/hasError"]) {
-        if (typeof redirect !== "undefined") {
-          this.$router.push({path: redirect});
-        } else {
-          this.$router.push({path: "/home"});
-        }
-      }
-    },
     handleSubmit() {
       this.isLoading = true;
       this.error = '';
@@ -89,11 +75,9 @@ export default {
           password: this.password
         })
         .then(response => {
-          console.log("login start: " + JSON.stringify(response));
-          let payload = {user: response.data};
-          this.$emit('user-authenticated', response.headers.location);
-          this.$store.dispatch("security/setIsAuthenticated", payload);
+          console.log(response.data);
 
+          this.$emit('user-authenticated', response.headers.location);
           this.email = '';
           this.password = '';
         }).catch(error => {
