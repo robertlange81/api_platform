@@ -21,12 +21,20 @@ class AppFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
+        $password = "123";
         for ($i = 0; $i < 3; $i++) {
             $user = new User();
             $user->setUsername($i);
             $user->setEmail($i . "@example.com");
-            $user->setPlainPassword("123");
+            $user->setPlainPassword($password);
             $this->customPersister->persist($user);
         }
+    
+        $user = new User();
+        $user->setUsername("admin");
+        $user->setEmail("admin@example.com");
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPlainPassword($password);
+        $this->customPersister->persist($user);
     }
 }

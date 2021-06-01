@@ -8,6 +8,7 @@ parameters:
 doctrine:
     dbal:
         # configure these for your database server
+        # This will prevent Doctrine to add the DROP TABLE sessions when running php bin/console doctrine:migrations:diff (as there is no Session entity).
         schema_filter: ~^(?!sessions)~
         driver: 'pdo_mysql'
         server_version: '5.7'
