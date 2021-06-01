@@ -8,6 +8,7 @@ parameters:
 doctrine:
     dbal:
         # configure these for your database server
+        schema_filter: ~^(?!sessions)~
         driver: 'pdo_mysql'
         server_version: '5.7'
         charset: utf8mb4

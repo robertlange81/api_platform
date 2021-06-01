@@ -22,7 +22,7 @@ security:
                 password_path: password
             logout:
                 path: /api/logout
-                target: /
+                target: /home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

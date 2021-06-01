@@ -36,3 +36,9 @@ services:
     App\Exception\HTTPExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+            - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
+            # If you get transaction issues (e.g. after login) uncomment the line below
+            - { lock_mode: 1 }

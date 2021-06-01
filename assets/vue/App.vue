@@ -77,8 +77,6 @@ export default {
   /* handle unauthorized => redirect to login */
   created() {
     let isAuthenticated = JSON.parse(this.$parent.$el.attributes["data-is-authenticated"].value);
-    console.log(isAuthenticated);
-    console.log("user: " + this.$parent.$el.attributes["data-user"].value);
     let user = JSON.parse(this.$parent.$el.attributes["data-user"].value);
 
     let payload = { isAuthenticated: isAuthenticated, user: user };

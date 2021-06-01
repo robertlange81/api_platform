@@ -75,8 +75,6 @@ export default {
           password: this.password
         })
         .then(response => {
-          console.log(response.data);
-
           this.$emit('user-authenticated', response.headers.location);
           this.email = '';
           this.password = '';
