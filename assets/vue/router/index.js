@@ -16,6 +16,7 @@ let router = new VueRouter({
     { path: "/imprint", component: Imprint },
     { path: "/login", component: Login },
     { path: "/posts", component: Posts, meta: { requiresAuth: true } },
+    { path: "*", redirect: "/home" },
     {
       path: '/start',
       name: 'start',
@@ -32,6 +33,7 @@ router.beforeEach((to, from, next) => {
     if (store.getters["security/isAuthenticated"]) {
       next();
     } else {
+      console.log("next login");
       next({
         path: "/login",
         query: { redirect: to.fullPath }

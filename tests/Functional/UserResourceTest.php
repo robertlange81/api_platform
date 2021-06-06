@@ -5,6 +5,7 @@ namespace App\tests\Functional;
 use App\Entity\User;
 use App\Test\CustomApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserResourceTest extends CustomApiTestCase
 {
@@ -43,11 +44,14 @@ class UserResourceTest extends CustomApiTestCase
         $user->setRoles(['ROLE_ADMIN']);
         $em->flush();
     
-        // TODO new login still needed in new api verision?
+        // TODO new login still needed in new api version?
         $this->logIn($client, 'testplease@example.com', 'foo');
     
         $client->request('GET', '/api/users/'.$user->getId());
         $data = $client->getResponse()->toArray();
         $this->assertArrayHasKey('phoneNumber', $data);
+        
+        $client->request('GET', '/logout'.$user->getId());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 }

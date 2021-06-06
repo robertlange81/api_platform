@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     onUserAuthenticated(userUri) {
-      console.log("atut: " + userUri);
+      console.log("atutee: " + userUri);
       axios
         .get(userUri)
         .then(response => {
@@ -109,7 +109,7 @@ export default {
           let payload = { isAuthenticated: true, user: this.user };
           this.$store.dispatch("security/onRefresh", payload);
           this.$store.dispatch("security/setIsAuthenticated", payload);
-        })
+        });
     }
   }
 }

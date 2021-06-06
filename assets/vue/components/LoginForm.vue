@@ -66,6 +66,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      console.log("wird das noch genutzt 1?");
       this.isLoading = true;
       this.error = '';
 
@@ -78,6 +79,12 @@ export default {
           this.$emit('user-authenticated', response.headers.location);
           this.email = '';
           this.password = '';
+          console.log("wird das noch genutzt 2?");
+          if (!this.$store.getters["security/hasError"]) {
+            return new Promise(() => {
+              this.$router.push({path: "/home"})
+            });
+          }
         }).catch(error => {
           console.log(error);
           if (error.response.data.error) {
