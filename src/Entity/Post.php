@@ -14,6 +14,7 @@
   use Ramsey\Uuid\Uuid;
   use Ramsey\Uuid\UuidInterface;
   use Symfony\Component\Serializer\Annotation\Groups;
+  use Symfony\Component\Serializer\Annotation\SerializedName;
   use Symfony\Component\Validator\Constraints as Assert;
 
   /**
@@ -59,6 +60,7 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"post:read"})
      * @Assert\Valid()
      * @IsValidOwner()
      */
@@ -109,7 +111,11 @@ class Post
     {
         $this->updated = new DateTime('NOW');
     }
-    
+
+    /**
+     * @Groups({"post:read"})
+     * @return UuidInterface
+    */
     public function getId(): UuidInterface
     {
         return $this->id;
@@ -138,6 +144,16 @@ class Post
     public function getOwner(): ?User
     {
         return $this->owner;
+    }
+    
+    /**
+     * @Groups({"post:read"})
+     * @SerializedName("userHandle")
+     * @return string|null
+     */
+    public function getUserHandle(): ?string
+    {
+        return (string)$this->getOwner()->getId();
     }
     
     public function setOwner(?User $owner): self

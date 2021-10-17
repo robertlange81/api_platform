@@ -6,9 +6,10 @@ use App\Entity\ItemListing;
 use App\Entity\User;
 use App\Test\CustomApiTestCase;
 
-class ItemListingResourceTest extends CustomApiTestCase {
+class ItemListingResourceTest extends CustomApiTestCase
+{
 
-    function testCreateItemListing()
+    public function testCreateItemListing()
     {
         $client = self::createClient();
         $client->request('POST', '/api/items', [
@@ -30,8 +31,8 @@ class ItemListingResourceTest extends CustomApiTestCase {
         ]);
         $this->assertResponseStatusCodeSame(201);
     }
-    
-    function testOnlyUserCanLogIn()
+
+    public function testOnlyUserCanLogIn()
     {
         $client = self::createClient();
         $client->request('POST', '/api/items', [
@@ -72,7 +73,8 @@ class ItemListingResourceTest extends CustomApiTestCase {
         $this->assertResponseStatusCodeSame(403, 'only author can updated');
     
         /* this should not be possible: change owner of item by request from other user */
-        /* security and access_control work identically, except that security runs before the object is updated from the posted data. */
+        /* security and access_control work identically,
+        except that security runs before the object is updated from the posted data. */
         $this->logIn($client, 'user2@example.com', 'foo');
         $client->request('PUT', '/api/items/'.$itemListing->getId(), [
             'json' => ['title' => 'updated', 'owner' => '/api/users/' . $user2->getId()]

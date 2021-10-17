@@ -216,7 +216,7 @@ class User implements UserInterface
      */
     public function getPublisheditemListings(): Collection
     {
-        return $this->itemListings->filter(function(ItemListing $itemListing) {
+        return $this->itemListings->filter(function (ItemListing $itemListing) {
             return $itemListing->getIsPublished();
         });
     }
